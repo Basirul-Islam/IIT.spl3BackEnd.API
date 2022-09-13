@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IIT.spl3BackEnd.Common\IIT.spl3BackEnd.Common.csproj" />
+    <ProjectReference Include="..\IIT.spl3BackEnd.DB\IIT.spl3BackEnd.DB.csproj" />
+    <ProjectReference Include="..\IIT.spl3BackEnd.Repositories\IIT.spl3BackEnd.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>
