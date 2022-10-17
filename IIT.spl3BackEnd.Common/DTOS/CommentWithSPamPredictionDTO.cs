@@ -9,9 +9,8 @@ namespace Common.DTOS
 {
     public class CommentWithSPamPredictionDTO
     {
-        [JsonProperty("comment")]
-        public string comment { get; set; }
-        [JsonProperty("prediction")]
-        public List<object> prediction { get; set; }
+        public string commentId { get; set; }
+        public string CommentBody { get; set; }
+        public int isSpam { get; set; }
     }
 }

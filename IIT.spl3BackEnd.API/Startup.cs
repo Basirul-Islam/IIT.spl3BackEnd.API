@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
+using IIT.spl3BackEnd.Helper;
 
 namespace Cefalo.BlogSiteBackEnd.API
 {
@@ -57,8 +58,8 @@ namespace Cefalo.BlogSiteBackEnd.API
 
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICommentServices, CommentService>();
-            /*services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserservice, UserServices>();
+            services.AddScoped<IPythonService, PythonService>();
+            /*services.AddScoped<IUserservice, UserServices>();
             services.AddScoped<IBlogService, BlogService>();
             services.AddScoped<IRegexUtilities, RegexUtilities>();
             services.AddScoped<ITokenService, TokenService>();*/

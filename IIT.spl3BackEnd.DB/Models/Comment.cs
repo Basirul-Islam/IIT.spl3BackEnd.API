@@ -14,6 +14,7 @@ namespace IIT.spl3Backend.DB.Models
         public int Id { get; set; }
         public string commentId { get; set; }
         public string CommentBody { get; set; }
+        //public int isSpam { get; set; } 
             
     }
 }

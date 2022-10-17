@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IIT.spl3BackEnd.Common", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IIT.spl3BackEnd.Repositories", "IIT.spl3BackEnd.Repositories\IIT.spl3BackEnd.Repositories.csproj", "{7C9E2885-848B-4A8B-B913-D662B174E495}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IIT.spl3BackEnd.Helper", "IIT.spl3BackEnd.Helper\IIT.spl3BackEnd.Helper.csproj", "{955141C3-CA30-4FEF-B39D-FF130C4898E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7C9E2885-848B-4A8B-B913-D662B174E495}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C9E2885-848B-4A8B-B913-D662B174E495}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C9E2885-848B-4A8B-B913-D662B174E495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{955141C3-CA30-4FEF-B39D-FF130C4898E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{955141C3-CA30-4FEF-B39D-FF130C4898E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{955141C3-CA30-4FEF-B39D-FF130C4898E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{955141C3-CA30-4FEF-B39D-FF130C4898E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

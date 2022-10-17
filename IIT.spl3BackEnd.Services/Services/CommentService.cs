@@ -1,29 +1,38 @@
-﻿using AutoMapper;
+﻿using System.Web;
+using Newtonsoft.Json;
+using AutoMapper;
 using Common.DTOS;
 using IIT.spl3Backend.DB.Models;
 using IIT.spl3Backend.Repositories.ICommentRepositories;
 using IIT.spl3Backend.Services.Services.IServices;
+using IIT.spl3BackEnd.Helper;
 
 namespace IIT.spl3Backend.Services.Services
 {
     public class CommentService: ICommentServices
     {
         private readonly ICommentRepository _commentRepository;
-
+        private readonly IPythonService _pythonService;
         private readonly IMapper _mapper;
 
 
-        public CommentService(ICommentRepository commentRepository, IMapper mapper)
+        public CommentService(ICommentRepository commentRepository, IPythonService pythonService , IMapper mapper)
         {
             _commentRepository = commentRepository;
+            _pythonService = pythonService; 
             _mapper = mapper;
 
         }
-        public async Task<IEnumerable<CommentDTO>> AddComment(IEnumerable<CommentDTO> comments)
+        public async Task<IEnumerable<CommentDTO>> AddComment(/*IEnumerable<CommentDTO> comments*/)
         {
-            
-           await _commentRepository.AddComment(_mapper.Map<IEnumerable<Comment>>(comments));
+
+            IEnumerable<CommentDTO> comments = await _pythonService.GetCommentsFromAPI();
+            await _commentRepository.AddComment(_mapper.Map<IEnumerable<Comment>>(comments));
             return comments;
+            //IEnumerable<CommentWithSPamPredictionDTO> commentWithSPamPredictions = await _pythonService.GetSpamCommentsFromAPI(comments);
+            //await _commentRepository.AddComment(_mapper.Map<IEnumerable<Comment>>());
+            //Console.WriteLine(commentWithSPamPredictions);
+            //return commentWithSPamPredictions;
         }
 
         public async Task<IEnumerable<CommentDTO>> GetAllComments()

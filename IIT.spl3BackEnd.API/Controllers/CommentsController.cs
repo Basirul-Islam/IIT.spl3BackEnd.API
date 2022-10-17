@@ -56,9 +56,9 @@ namespace BlogSiteBackEnd.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            string Videourl = "https://www.youtube.com/watch?v=Uccvf3peELQ";
+            /*string Videourl = "https://www.youtube.com/watch?v=Uccvf3peELQ";
             string path = HttpUtility.UrlEncode(Videourl);
-            var url = "http://127.0.0.1:8000/video_comments/" + "path";
+            var url = "http://127.0.0.1:8000/video_comments/" + "&url=" *//*+ path*//*;
 
 
             HttpClient client = new HttpClient();
@@ -72,8 +72,12 @@ namespace BlogSiteBackEnd.Controllers
             IEnumerable<CommentDTO> comments = await _commentServices.AddComment(commentList.AsEnumerable());
 
 
-            Console.WriteLine(comments);
-            return Ok(comments);
+            Console.WriteLine(comments);*/
+            //_commentServices.AddComment();
+            //IEnumerable<CommentWithSPamPredictionDTO> commentWithSPamPredictionDTOs =await _commentServices.AddComment();
+            IEnumerable<CommentDTO> commentWithSPamPredictionDTOs = await _commentServices.AddComment();
+            //return Ok(commentWithSPamPredictionDTOs);
+            return Ok(commentWithSPamPredictionDTOs);
         }
         [HttpGet("GetSpamComment")]
         public async Task<IActionResult> GetSpamComment()

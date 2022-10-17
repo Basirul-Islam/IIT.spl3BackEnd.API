@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IIT.spl3BackEnd.Common\IIT.spl3BackEnd.Common.csproj" />
+    <ProjectReference Include="..\IIT.spl3BackEnd.Helper\IIT.spl3BackEnd.Helper.csproj" />
+    <ProjectReference Include="..\IIT.spl3BackEnd.Repositories\IIT.spl3BackEnd.Repositories.csproj" />
     <ProjectReference Include="..\IIT.spl3BackEnd.Services\IIT.spl3BackEnd.Services.csproj" />
   </ItemGroup>
 
