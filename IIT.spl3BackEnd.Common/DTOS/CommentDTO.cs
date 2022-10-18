@@ -17,5 +17,12 @@ namespace Common.DTOS
         {
             get; set;
         }
+        [JsonProperty("AuthorDisplayName")]
+        public string AuthorDisplayName { get; set; }
+        [JsonProperty("ProfileImageUrl")]
+        public string ProfileImageUrl
+        {
+            get; set;
+        }
     }
 }

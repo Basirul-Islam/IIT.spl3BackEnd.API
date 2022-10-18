@@ -6,6 +6,8 @@ using IIT.spl3Backend.DB.Models;
 using IIT.spl3Backend.Repositories.ICommentRepositories;
 using IIT.spl3Backend.Services.Services.IServices;
 using IIT.spl3BackEnd.Helper;
+using IIT.spl3BackEnd.Common.DTOS;
+using System.Net;
 
 namespace IIT.spl3Backend.Services.Services
 {
@@ -23,10 +25,10 @@ namespace IIT.spl3Backend.Services.Services
             _mapper = mapper;
 
         }
-        public async Task<IEnumerable<CommentDTO>> AddComment(/*IEnumerable<CommentDTO> comments*/)
+        public async Task<IEnumerable<CommentDTO>> Getcomments(/*IEnumerable<CommentDTO> comments*/ URLDto URL)
         {
 
-            IEnumerable<CommentDTO> comments = await _pythonService.GetCommentsFromAPI();
+            IEnumerable<CommentDTO> comments = await _pythonService.GetCommentsFromAPI(URL);
             await _commentRepository.AddComment(_mapper.Map<IEnumerable<Comment>>(comments));
             return comments;
             //IEnumerable<CommentWithSPamPredictionDTO> commentWithSPamPredictions = await _pythonService.GetSpamCommentsFromAPI(comments);
@@ -40,6 +42,29 @@ namespace IIT.spl3Backend.Services.Services
             IEnumerable<Comment> comments = await _commentRepository.GetAllComments();
             IEnumerable<CommentDTO> commentsDto = _mapper.Map<IEnumerable<CommentDTO>>(comments);
             return commentsDto;
+        }
+
+        public async Task<IEnumerable<CommentWithSPamPredictionDTO>> GetSpamLabeledcomments(URLDto URL)
+        {
+            return await _pythonService.GetSpamCommentsFromAPI(URL);
+            //throw new NotImplementedException();
+        }
+
+        public async Task<bool> isValidUrl(string url)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+                request.Method = "HEAD";
+                HttpWebResponse Response = (HttpWebResponse)request.GetResponse();
+                if (Response.ResponseUri.ToString().Contains("https://www.youtube.com/watch?")) return true;
+                else return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
         }
     }
 }

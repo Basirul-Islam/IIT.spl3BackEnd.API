@@ -7,20 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using IIT.spl3BackEnd.Common.DTOS;
+using System.Text.Json;
 
 namespace IIT.spl3BackEnd.Helper
 {
     public class PythonService : IPythonService
     {
-        public async Task<IEnumerable<CommentDTO>> GetCommentsFromAPI()
+        public async Task<IEnumerable<CommentDTO>> GetCommentsFromAPI(URLDto url)
         {
-            string Videourl = "https://www.youtube.com/watch?v=Uccvf3peELQ";
-            string path = HttpUtility.UrlEncode(Videourl);
-            var url = "http://127.0.0.1:8000/video_comments/" + "&url=" /*+ path*/;
+            //String Videourl = "https://www.youtube.com/watch?v=Uccvf3peELQ";
+            //string path = HttpUtility.UrlEncode(Videourl);
+            //var url = "http://127.0.0.1:8000/video_comments/" + "&url=" /*+ path*/;
 
+            /* var request = new HttpRequestMessage
+             {
+                 Method = HttpMethod.Get,
+                 RequestUri = new Uri("http://127.0.0.1:8000/get_comments/"),
+                 //Content = url;
+                 Content = new StringContent(url.URL, Encoding.UTF8, URLDto),
+             };*/
+
+            var opt = new JsonSerializerOptions() { WriteIndented = true };
+            String payload = System.Text.Json.JsonSerializer.Serialize<URLDto>(url, opt);
+
+            HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+
+            var RequestUri = "http://127.0.0.1:8000/get_comments/";
 
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(url);
+            HttpResponseMessage response = await client.PostAsync(RequestUri, content);
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
             Console.WriteLine(responseBody);
@@ -29,57 +45,24 @@ namespace IIT.spl3BackEnd.Helper
             return commentList.AsEnumerable();
         }
 
-        public async Task<IEnumerable<CommentWithSPamPredictionDTO>> GetSpamCommentsFromAPI(IEnumerable<CommentDTO> comments)
+        public async Task<IEnumerable<CommentWithSPamPredictionDTO>> GetSpamCommentsFromAPI(URLDto url)
         {
-            List<int> arr = new List<int>();
-            List<CommentWithSPamPredictionDTO> commentWithSPamPredictionDTOs = new List<CommentWithSPamPredictionDTO>();
-            foreach(CommentDTO comment in comments)
-            {
-                if(Regex.IsMatch(comment.CommentBody,
-                @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)"))
-                {
-                    CommentWithSPamPredictionDTO commentWithSPamPredictionDTO1 = new CommentWithSPamPredictionDTO()
-                    {
-                        commentId = comment.commentId,
-                        CommentBody = comment.CommentBody,
-                        isSpam = 1,
-                    };
-                    commentWithSPamPredictionDTOs.Add(commentWithSPamPredictionDTO1);
-                    continue;
-                }
-                if(Uri.IsWellFormedUriString(comment.CommentBody, UriKind.RelativeOrAbsolute))
-                {
-                    CommentWithSPamPredictionDTO commentWithSPamPredictionDTO1 = new CommentWithSPamPredictionDTO()
-                    {
-                        commentId = comment.commentId,
-                        CommentBody = comment.CommentBody,
-                        isSpam = 1,
-                    };
-                    commentWithSPamPredictionDTOs.Add(commentWithSPamPredictionDTO1);
-                    continue;
-                }
-                var url = "http://127.0.0.1:8000/detect_spam/" + comment.CommentBody;
-                HttpClient client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseBody);
-                List<object> prediction = JsonConvert.DeserializeObject<List<object>>(responseBody);
-                int isSpam = (int)(long)prediction.FirstOrDefault();
-                Console.WriteLine(isSpam);
-                arr.Add(isSpam);
-                CommentWithSPamPredictionDTO commentWithSPamPredictionDTO = new CommentWithSPamPredictionDTO()
-                {
-                    commentId = comment.commentId,
-                    CommentBody = comment.CommentBody,
-                    isSpam = isSpam,
-                };
-                commentWithSPamPredictionDTOs.Add(commentWithSPamPredictionDTO);
-                //commentWithSPamPredictionDTO.CommentBody = comment.CommentBody; 
-            }
-            Console.WriteLine(arr);
-            return commentWithSPamPredictionDTOs.AsEnumerable();
-            
+
+            var opt = new JsonSerializerOptions() { WriteIndented = true };
+            String payload = System.Text.Json.JsonSerializer.Serialize<URLDto>(url, opt);
+
+            HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+
+            var RequestUri = "http://127.0.0.1:8000/spam_comments/";
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(RequestUri, content);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseBody);
+            List<CommentWithSPamPredictionDTO> commentList = JsonConvert.DeserializeObject<List<CommentWithSPamPredictionDTO>>(responseBody);
+            Console.WriteLine(commentList);
+            return commentList.AsEnumerable();
         }
     }
 }
