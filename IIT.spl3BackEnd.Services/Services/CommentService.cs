@@ -66,5 +66,10 @@ namespace IIT.spl3Backend.Services.Services
             }
             
         }
+
+        public async Task<IEnumerable<ReportDto>> GetReports()
+        {
+            return await _pythonService.GetRepotsFromAPI();
+        }
     }
 }

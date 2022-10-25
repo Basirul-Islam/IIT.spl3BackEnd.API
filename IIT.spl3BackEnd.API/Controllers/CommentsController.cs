@@ -47,6 +47,13 @@ namespace BlogSiteBackEnd.Controllers
             return Ok(await _commentServices.isValidUrl(uRLDto.URL));
         }
 
+        [HttpGet("GetReport")]
+        public async Task<IActionResult> GetReport()
+        {
+            return Ok(await _commentServices.GetReports());
+            //return Ok(await _commentServices.isValidUrl(uRLDto.URL));
+        }
+
         [HttpGet("GetSpamComment")]
         public async Task<IActionResult> GetSpamComment()
         {

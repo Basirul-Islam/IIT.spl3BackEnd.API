@@ -14,6 +14,7 @@ namespace IIT.spl3Backend.Services.Services.IServices
         Task<IEnumerable<CommentDTO>> Getcomments(URLDto URL);
         Task<IEnumerable<CommentWithSPamPredictionDTO>> GetSpamLabeledcomments(URLDto URL);
         Task<IEnumerable<CommentDTO>> GetAllComments();
+        Task<IEnumerable<ReportDto>> GetReports();
         Task<bool> isValidUrl(string url);
     }
 }

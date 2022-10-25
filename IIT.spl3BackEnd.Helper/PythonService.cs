@@ -45,6 +45,20 @@ namespace IIT.spl3BackEnd.Helper
             return commentList.AsEnumerable();
         }
 
+        public async Task<IEnumerable<ReportDto>> GetRepotsFromAPI()
+        {
+            var RequestUri = "http://127.0.0.1:8000/get_report/";
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(RequestUri);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseBody);
+            List<ReportDto> Reports = JsonConvert.DeserializeObject<List<ReportDto>>(responseBody);
+            Console.WriteLine(Reports);
+            return Reports.AsEnumerable();
+        }
+
         public async Task<IEnumerable<CommentWithSPamPredictionDTO>> GetSpamCommentsFromAPI(URLDto url)
         {
 
