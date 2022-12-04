@@ -41,6 +41,12 @@ namespace BlogSiteBackEnd.Controllers
             IEnumerable<CommentWithSPamPredictionDTO> commentWithSPamPredictionDTOs = await _commentServices.GetSpamLabeledcomments(uRLDto);
             return Ok(commentWithSPamPredictionDTOs);
         }
+        [HttpPost("GetAll/Labled/Comments")]
+        public async Task<IActionResult> GetAllSpamAndHaateLabledComments([FromBody] URLDto uRLDto)
+        {
+            IEnumerable<CommentWithSpamAndHatePrediction> commentWithSPamPredictionDTOs = await _commentServices.GetSpamAndHateLabeledcomments(uRLDto);
+            return Ok(commentWithSPamPredictionDTOs);
+        }
         [HttpPost("CeckIsValidUrl")]
         public async Task<IActionResult> CeckIsValidUrl([FromBody] URLDto uRLDto)
         {

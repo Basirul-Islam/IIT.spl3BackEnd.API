@@ -50,6 +50,12 @@ namespace IIT.spl3Backend.Services.Services
             //throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<CommentWithSpamAndHatePrediction>> GetSpamAndHateLabeledcomments(URLDto URL)
+        {
+            return await _pythonService.GetSpamAndHateCommentsFromAPI(URL);
+            //throw new NotImplementedException();
+        }
+
         public async Task<bool> isValidUrl(string url)
         {
             try

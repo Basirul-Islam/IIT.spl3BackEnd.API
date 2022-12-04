@@ -23,7 +23,7 @@ namespace Common.DTOS
         {
             get; set;
         }
-        [JsonProperty("prediction")]
+        [JsonProperty("spam_prediction")]
         public string isSpam { get; set; }
     }
 }

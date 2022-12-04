@@ -78,5 +78,25 @@ namespace IIT.spl3BackEnd.Helper
             Console.WriteLine(commentList);
             return commentList.AsEnumerable();
         }
+
+        public async Task<IEnumerable<CommentWithSpamAndHatePrediction>> GetSpamAndHateCommentsFromAPI(URLDto url)
+        {
+
+            var opt = new JsonSerializerOptions() { WriteIndented = true };
+            String payload = System.Text.Json.JsonSerializer.Serialize<URLDto>(url, opt);
+
+            HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+
+            var RequestUri = "http://127.0.0.1:8000/get_spam_hate_comments/";
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(RequestUri, content);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseBody);
+            List<CommentWithSpamAndHatePrediction> commentList = JsonConvert.DeserializeObject<List<CommentWithSpamAndHatePrediction>>(responseBody);
+            Console.WriteLine(commentList);
+            return commentList.AsEnumerable();
+        }
     }
 }

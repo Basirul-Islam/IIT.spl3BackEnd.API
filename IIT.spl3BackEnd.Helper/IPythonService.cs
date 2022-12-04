@@ -12,7 +12,7 @@ namespace IIT.spl3BackEnd.Helper
     {
         Task<IEnumerable<CommentDTO>> GetCommentsFromAPI(URLDto url);
         Task<IEnumerable<CommentWithSPamPredictionDTO>> GetSpamCommentsFromAPI(URLDto url);
-
+        Task<IEnumerable<CommentWithSpamAndHatePrediction>> GetSpamAndHateCommentsFromAPI(URLDto url);
         Task<IEnumerable<ReportDto>> GetRepotsFromAPI();
     }
 }
