@@ -1,5 +1,6 @@
 ﻿using Common.DTOS;
 using IIT.spl3Backend.DB.Models;
+using IIT.spl3BackEnd.Common.DTOS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,11 @@ namespace IIT.spl3Backend.Services.Services.IServices
 {
     public interface ICommentServices
     {
-        Task<IEnumerable<CommentDTO>> AddComment(/*IEnumerable<CommentDTO> comments*/);
+        Task<IEnumerable<CommentDTO>> Getcomments(URLDto URL);
+        Task<IEnumerable<CommentWithSPamPredictionDTO>> GetSpamLabeledcomments(URLDto URL);
+        Task<IEnumerable<CommentWithSpamAndHatePrediction>> GetSpamAndHateLabeledcomments(URLDto URL);
         Task<IEnumerable<CommentDTO>> GetAllComments();
+        Task<IEnumerable<ReportDto>> GetReports();
+        Task<bool> isValidUrl(string url);
     }
 }

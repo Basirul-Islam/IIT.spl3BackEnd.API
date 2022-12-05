@@ -1,4 +1,5 @@
 ﻿using Common.DTOS;
+using IIT.spl3BackEnd.Common.DTOS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace IIT.spl3BackEnd.Helper
 {
     public interface IPythonService
     {
-        Task<IEnumerable<CommentDTO>> GetCommentsFromAPI();
-        Task<IEnumerable<CommentWithSPamPredictionDTO>> GetSpamCommentsFromAPI(IEnumerable<CommentDTO> comments);
+        Task<IEnumerable<CommentDTO>> GetCommentsFromAPI(URLDto url);
+        Task<IEnumerable<CommentWithSPamPredictionDTO>> GetSpamCommentsFromAPI(URLDto url);
+        Task<IEnumerable<CommentWithSpamAndHatePrediction>> GetSpamAndHateCommentsFromAPI(URLDto url);
+        Task<IEnumerable<ReportDto>> GetRepotsFromAPI();
     }
 }
